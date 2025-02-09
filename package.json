@@ -14,17 +14,21 @@
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.0.3",
+    "ainpm": "^1.0.1",
     "autoprefixer": "^10.4.20",
+    "axios": "^1.7.9",
     "date-fns": "^4.1.0",
     "fs": "^0.0.1-security",
+    "install": "^0.13.0",
     "mobx": "^6.13.6",
     "mobx-react": "^9.2.0",
     "mobx-state-tree": "^5.4.2",
     "postcss": "^8.5.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-router-dom": "^7.1.5",
     "recharts": "^2.15.1",
-    "tailwindcss": "^4.0.3"
+    "tailwindcss": "^4.0.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

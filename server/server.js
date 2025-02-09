@@ -1,50 +1,63 @@
+// server.js
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const bodyParser = require('body-parser');
-const fetch = require('node-fetch'); // Add this to your package.json if not present
-
+const connectDB = require('./config/db');
+const chatRoutes = require('./routes/chatRoutes');
+const { Department, Teacher, Student, Course } = require('./models');
+const NetworkUtils = require('./config/networkUtils');
 const app = express();
-const port =  4000;
 
 // Middleware
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-// Dgraph GraphQL endpoint
-const DGRAPH_ENDPOINT = 'http://13.235.80.128:8080/graphql';
-
-// GraphQL proxy endpoint
-app.post('/graphql', async (req, res) => {
+// Create necessary indexes for efficient searching
+async function createSearchIndexes() {
   try {
-    console.log(JSON.stringify(req.body));
-    // Forward the request to Dgraph's GraphQL endpoint
-    const response = await fetch(DGRAPH_ENDPOINT, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(req.body)
-    });
-
-    const data = await response.json();
-    res.json(data);
+    // Create text indexes for searching across collections
+    await Promise.all([
+      Department.collection.createIndex({
+        name: 'text',
+        code: 'text',
+        description: 'text',
+      }),
+      Teacher.collection.createIndex({
+        firstName: 'text',
+        lastName: 'text',
+        specializations: 'text',
+      }),
+      Student.collection.createIndex({
+        firstName: 'text',
+        lastName: 'text',
+        rollNumber: 'text',
+      }),
+      Course.collection.createIndex({
+        name: 'text',
+        courseCode: 'text',
+        description: 'text',
+      }),
+    ]);
+    console.log('Search indexes created successfully');
   } catch (error) {
-    console.error('GraphQL Request Error:', error);
-    res.status(500).json({
-      errors: [{
-        message: error.message
-      }]
-    });
+    console.error('Error creating search indexes:', error);
   }
-});
+}
 
-// Health check endpoint
-app.get('/health', (req, res) => {
-  res.json({ status: 'ok' });
-});
+// Routes - we only need the chat route for our AI chatbot
+app.use('/api/chat', chatRoutes);
 
-// Start server
-app.listen(port, () => {
-  console.log(`Server running on port ${port}`);
-  console.log(`GraphQL endpoint: http://localhost:${port}/graphql`);
+const PORT = NetworkUtils.PORT || 5000;
+// app.listen(PORT, () => {
+//   console.log(`Server running on port ${PORT}`);
+// });
+// Connect to MongoDB
+connectDB().then(async () => {
+  // Create indexes
+  await createSearchIndexes();
+
+  // Start server
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });
