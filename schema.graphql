@@ -1,0 +1,24 @@
+type Product {
+  id: ID!
+  name: String @search(by: [term]) @dgraph(pred: "name")
+  category: String @search(by: [term]) @dgraph(pred: "category")
+  price: Float! @dgraph(pred: "price")
+  sales: [Sale] @dgraph(pred: "sales")
+  totalRevenue: Float! @dgraph(pred: "totalRevenue")
+  totalQuantity: Int! @dgraph(pred: "totalQuantity")
+  createdOn: DateTime @search @dgraph(pred: "createdOn")
+  updatedOn: DateTime @search @dgraph(pred: "updatedOn")
+}
+
+type Sale {
+  id: ID!
+  product: Product @dgraph(pred: "product")
+  quantity: Int! @dgraph(pred: "quantity")
+  revenue: Float! @dgraph(pred: "revenue")
+  date: DateTime @search @dgraph(pred: "date")
+  region: String @search(by: [term]) @dgraph(pred: "region")
+  createdOn: DateTime @search @dgraph(pred: "createdOn")
+  updatedOn: DateTime @search @dgraph(pred: "updatedOn")
+}
+
+
