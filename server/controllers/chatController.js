@@ -282,7 +282,7 @@ const generateResponse = async (req, res) => {
       messages: [
         {
           role: 'user',
-          content: `You are a college information assistant. Use the following data to answer the question. If the data doesn't contain relevant information, say so politely. but dont keep apologizing.
+          content: `You are a college information assistant. Use the following data to answer the question. If the data doesn't contain relevant information, say so politely. but dont keep apologizing just give me minimal information unless asked for
 
           Available Information:
           ${context}

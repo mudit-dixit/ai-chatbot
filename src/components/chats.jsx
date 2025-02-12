@@ -43,7 +43,15 @@ const Chat = () => {
     <div className="flex flex-col h-screen bg-[#E2E0C8]">
       {/* Header */}
       <div className="bg-[#5C7285] p-4 shadow-md">
-        <h1 className="text-white text-xl font-semibold">College Assistant</h1>
+        <h1
+          className="text-white text-xl font-semibold "
+          style={{
+            fontFamily: 'fantasy',
+            textShadow: '5px 5px 8px rgba(0, 0, 0, 0.3)',
+          }}
+        >
+          COLLEGE ASSISTANT
+        </h1>
       </div>
 
       {/* Chat messages */}
