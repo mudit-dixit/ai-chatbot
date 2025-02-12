@@ -58,7 +58,7 @@ const chats = () => {
               msg.type === 'user'
                 ? 'ml-auto bg-blue-500 text-white'
                 : msg.type === 'ai'
-                ? 'bg-gray-200'
+                ? 'bg-pink-950'
                 : 'bg-red-500 text-black'
             } p-3 rounded-lg max-w-[80%]`}
           >
