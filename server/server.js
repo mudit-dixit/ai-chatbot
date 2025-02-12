@@ -47,6 +47,10 @@ async function createSearchIndexes() {
 // Routes - we only need the chat route for our AI chatbot
 app.use('/api/chat', chatRoutes);
 
+app.get('/health', (req, res) => {
+  res.json({ status: 'ok' });
+});
+
 const PORT = NetworkUtils.PORT || 5000;
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
