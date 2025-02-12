@@ -17,7 +17,7 @@ const Chat = () => {
 
     try {
       const response = await axios.post(
-        'http://http://13.235.80.128/:5000/api/chat/ask',
+        'http://http://13.235.80.128:5000/api/chat/ask',
         {
           question: input,
         }
