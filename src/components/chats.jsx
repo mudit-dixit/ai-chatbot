@@ -16,9 +16,12 @@ const Chat = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/api/chat/ask', {
-        question: input,
-      });
+      const response = await axios.post(
+        'http://http://13.235.80.128/:5000/api/chat/ask',
+        {
+          question: input,
+        }
+      );
 
       const aiMessage = {
         type: 'ai',
